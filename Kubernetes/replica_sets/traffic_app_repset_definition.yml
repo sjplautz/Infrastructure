@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet 
+metadata:
+  name: traffic-app-replicaset
+  labels:
+    app: traffic-app
+    tier: back-end
+spec:
+  template: 
+    metadata:
+      name: traffic-app-pod
+      labels:
+        app: traffic-app
+        tier: back-end
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+  replicas: 3  
+  selector: 
+    matchLabels:
+      tier: back-end

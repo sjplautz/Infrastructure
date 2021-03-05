@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: traffic-app-deployment
+  labels:
+    app: traffic-app
+    tier: back-end
+spec:
+  template: 
+    metadata:
+      name: traffic-app-pod
+      labels:
+        app: traffic-app
+        tier: back-end
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+  replicas: 2  
+  selector: 
+    matchLabels:
+      tier: back-end

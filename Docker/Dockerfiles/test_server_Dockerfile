@@ -1,0 +1,5 @@
+FROM nginx
+# add a directory to the root for app development
+RUN mkdir /usr/share/app_folder
+CMD ["echo", "Hello World.... from test server running container"]
+/bin/bash
