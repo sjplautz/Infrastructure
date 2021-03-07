@@ -1,15 +1,9 @@
-version: '3'
+version: "3"
 services:
         test_webserver:
-                container_name: test_webserver
-                build:
-                       context: "/home/stephen/Software/Git_Repos/Personal_Projects/Web_Portfolio/Infrastructure/Docker/Dockerfiles/"
-                       dockerfile: "test_server_Dockerfile"
-                ports: 
-                        - "8080:80"
+                image: "my_test_app:1.0"
+                container_name: test_app_BABY
+                ports:
+                        - "6969:80"
                 volumes:
-                        - "/home/stephen/Software/Git_Repos/Personal_Projects/Web_Portfolio/Infrastructure/Docker/Container_Volumes/test_server_volume:/usr/share" 
-                networks:
-                        - net
-networks:
-        net:
+                        - ${WEBSERVER_VOLUME}
