@@ -90,11 +90,11 @@ pipeline{
 }
 
 // groovy script to check if code has changed
-getGitChanges(){
+def getGitChanges(){
     return true
 }
 
 // calculates the verion number for (jenkinsfile or apps?)
-getVersion(){
-    return 1.1
+def getVersion(){
+    return "1.1"
 }
