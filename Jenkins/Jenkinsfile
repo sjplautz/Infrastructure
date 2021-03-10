@@ -50,8 +50,9 @@ pipeline{
             // only execute steps if these conditions are true
             when{
                 expression{
+                    echo "CODE_CHANGES is ${env.CODE_CHANGES}"
                     // using jenkins default env vars for conditional
-                    return CODE_CHANGES == true
+                    return env.CODE_CHANGES == "true"
                 }
             }
             steps{
@@ -101,7 +102,7 @@ pipeline{
 
 // groovy script to check if code has changed
 def getGitChanges(){
-    return true
+    return "true"
 }
 
 // calculates the verion number for (jenkinsfile or apps?)
