@@ -8,14 +8,14 @@ pipeline{
     // allow the build to accept parameters to enhance pipeline flexibility
     // parameters{
         // paramType(option1: "val", option2: "val", optionN: "val")
-    }
+    //}
 
     // make build tools available to the pipeline
     // tools{
         // <tool> <tool name in jenkins tools>
         // gradle Gradle
         // whatever other supported tools
-    }
+    //}
 
     // defining custom environment vars for global use in Jenkinsfile 
     environment {
