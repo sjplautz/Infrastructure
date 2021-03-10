@@ -51,7 +51,7 @@ pipeline{
             when{
                 expression{
                     // using jenkins default env vars for conditional
-                    $CODE_CHANGES == true
+                    return CODE_CHANGES == true
                 }
             }
             steps{
