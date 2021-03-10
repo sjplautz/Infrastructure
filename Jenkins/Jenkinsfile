@@ -95,6 +95,6 @@ def getGitChanges(){
 }
 
 // calculates the verion number for (jenkinsfile or apps?)
-def getVersion(){
+def calculateVersion(){
     return 1.1
 }
