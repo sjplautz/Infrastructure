@@ -1,6 +1,3 @@
-// define functions for conditionals on building
-CODE_CHANGES = getGitChanges()
-
 pipeline{
     // able to build on any jenkins node
     agent any
@@ -20,6 +17,7 @@ pipeline{
     // defining custom environment vars for global use in Jenkinsfile 
     environment {
         TEST_VAR = true
+        CODE_CHANGES = getGitChanges()
         VERSION = calculateVersion()
         // SOME_CREDENTIAL = credentials('CREDENTIAL_ID')
         DOCKERHUB = credentials('docker_hub')
@@ -31,7 +29,7 @@ pipeline{
         stage("build-apps"){
             steps{
                echo "building application artefact" 
-               echo "version number ${VERSION}"
+               echo "version number: ${VERSION}"
             }
         }
 
@@ -51,9 +49,11 @@ pipeline{
                 }
             }
             steps{
-                // conditional step
-                if(TEST_VAR == true){
-                    echo "testing the"
+                script{
+                    // conditional step
+                    if(TEST_VAR == true){
+                        echo "testing the"
+                    }
                 }
                 echo "application" 
             }
@@ -96,5 +96,5 @@ def getGitChanges(){
 
 // calculates the verion number for (jenkinsfile or apps?)
 def getVersion(){
-    return "1.1"
+    return 1.1
 }
