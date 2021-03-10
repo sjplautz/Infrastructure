@@ -64,10 +64,14 @@ pipeline{
             steps{
                echo "deploying the application" 
                withCredentials([
-                   sshUserPrivateKey(keyFileVariable: PRIVATE_KEY, credentialsId: 'master_key', passphraseVariable: PASSPHRASE, usernameVariable: USERNAME)
+                   sshUserPrivateKey(
+                       credentialsId: 'master_key', 
+                       keyFileVariable: 'SSH_KEYFILE', 
+                       passphraseVariable: 'SSH_PASSPHRASE', 
+                       usernameVariable: 'SSH_USERNAME')
                ]) {
                    echo "using credential entry master_key"
-                   echo "user: ${USERNAME}, privkey: ${PRIVATE_KEY}, passphrase: ${PASSPHRASE}"
+                   echo "user: ${SSH_USERNAME}, privkey: ${SSH_KEYFILE}, passphrase: ${SSH_PASSPHRASE}"
                }
             }
         }
