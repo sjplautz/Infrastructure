@@ -22,7 +22,7 @@ pipeline{
 
     // defining custom environment vars for global use in Jenkinsfile 
     environment {
-        TEST_VAR = true
+        TEST_VAR = "true"
         CODE_CHANGES = getGitChanges()
         VERSION = calculateVersion()
         // SOME_CREDENTIAL = credentials('CREDENTIAL_ID')
@@ -51,13 +51,13 @@ pipeline{
             when{
                 expression{
                     // using jenkins default env vars for conditional
-                    env.CODE_CHANGES == true
+                    env.CODE_CHANGES == "true"
                 }
             }
             steps{
                 script{
                     // conditional step
-                    if(env.TEST_VAR == true){
+                    if(env.TEST_VAR == "true"){
                         echo "testing the"
                     }
                 }
@@ -101,7 +101,7 @@ pipeline{
 
 // groovy script to check if code has changed
 def getGitChanges(){
-    return true
+    return "true"
 }
 
 // calculates the verion number for (jenkinsfile or apps?)
