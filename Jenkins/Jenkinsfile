@@ -6,12 +6,12 @@ pipeline{
     agent any
 
     // allow the build to accept parameters to enhance pipeline flexibility
-    parameters{
+    // parameters{
         // paramType(option1: "val", option2: "val", optionN: "val")
     }
 
     // make build tools available to the pipeline
-    tools{
+    // tools{
         // <tool> <tool name in jenkins tools>
         // gradle Gradle
         // whatever other supported tools
@@ -52,7 +52,7 @@ pipeline{
             }
             steps{
                 // conditional step
-                if($TEST_VAR){
+                if(TEST_VAR == true){
                     echo "testing the"
                 }
                 echo "application" 
