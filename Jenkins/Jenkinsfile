@@ -50,9 +50,8 @@ pipeline{
             // only execute steps if these conditions are true
             when{
                 expression{
-                    echo "CODE_CHANGES is ${env.CODE_CHANGES}"
                     // using jenkins default env vars for conditional
-                    return env.CODE_CHANGES == true
+                    env.CODE_CHANGES == true
                 }
             }
             steps{
