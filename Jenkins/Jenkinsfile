@@ -14,6 +14,12 @@ pipeline{
         // whatever other supported tools
     //}
 
+    // configure the build options for this pipeline
+    options{
+        // only keep record of last 5 pipeline builds
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+    }
+
     // defining custom environment vars for global use in Jenkinsfile 
     environment {
         TEST_VAR = true
@@ -45,7 +51,7 @@ pipeline{
             when{
                 expression{
                     // using jenkins default env vars for conditional
-                    CODE_CHANGES == true
+                    $CODE_CHANGES == true
                 }
             }
             steps{
