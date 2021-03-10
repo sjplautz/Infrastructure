@@ -45,7 +45,7 @@ pipeline{
             when{
                 expression{
                     // using jenkins default env vars for conditional
-                    BRANCH_NAME == 'dev' || BRANCH_NAME == 'master' && CODE_CHANGES == true
+                    CODE_CHANGES == true
                 }
             }
             steps{
