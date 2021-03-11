@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: traffic-app-deployment
+  name: frontend-deployment
   labels:
     app: web-portfolio
-    tier: back-end
+    tier: front-end
 spec:
   template: 
     metadata:
-      name: traffic-app-pod
+      name: angular-pod
       labels:
         app: web-portfolio
-        tier: back-end
+        tier: front-end
     spec:
       containers:
-        - name: hello-world
-          image: hello-world
+        - name: nginx
+          image: nginx
           ports:
-          - containerPort: 6969
-  replicas: 2  
+          - containerPort: 80
+  replicas: 1  
   selector: 
     matchLabels:
       app: web-portfolio
-      tier: back-end
+      tier: front-end
