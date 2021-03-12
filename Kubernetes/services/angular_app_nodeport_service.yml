@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata: 
-  name: traffic-app-node-port-service
+  name: angular-app-nodeport-service
   labels:
     app: traffic-app
     tier: back-end
@@ -9,12 +9,12 @@ spec:
   type: NodePort
   # this is a list, we can forward to many ports
   ports:
-    # the port our target pod is listening on
-    - targetPort: 80
-      # the port we are going to forward to
+    # the port our selected nodes expose
+    - nodePort: 30008
+      # forwards to the target port
       port: 80
-      # the port our Nodeport service is listening on
-      nodePort: 30008
+      # the port our pod exposes
+      targetPort: 80
   # used to identify which subset of pods listening on our target port to forward to
   selector:
     app: traffic-app
