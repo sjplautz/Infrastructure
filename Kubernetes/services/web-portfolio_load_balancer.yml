@@ -12,7 +12,6 @@ spec:
   type: LoadBalancer
   selector:
     app: web-portfolio
-    tier: front-end
   ports:
     # the port to listen for incoming traffic on
     - port: 80
