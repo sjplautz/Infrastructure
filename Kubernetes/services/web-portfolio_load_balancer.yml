@@ -11,7 +11,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: traffic-app
+    app: web-portfolio
     tier: front-end
   ports:
     # the port to listen for incoming traffic on
