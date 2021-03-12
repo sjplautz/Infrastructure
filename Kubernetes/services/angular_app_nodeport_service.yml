@@ -18,4 +18,4 @@ spec:
   # used to identify which subset of pods listening on our target port to forward to
   selector:
     app: traffic-app
-    tier: back-end
+    tier: front-end

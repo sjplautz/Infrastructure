@@ -16,8 +16,6 @@ spec:
       containers:
         - name: hello-world
           image: hello-world
-          ports:
-          - containerPort: 6969
   replicas: 2  
   selector: 
     matchLabels:
