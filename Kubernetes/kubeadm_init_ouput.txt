@@ -1,2 +1,0 @@
-kubeadm join 88.198.165.156:6443 --token pgh7zb.xe2yme8uceezfd2l \
-    --discovery-token-ca-cert-hash sha256:c1cb214a12130d78554eea828ca84b13f11501ebd8276c3969e058e8fbdfb81a 

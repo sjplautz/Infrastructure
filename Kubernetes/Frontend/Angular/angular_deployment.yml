@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: frontend-deployment
+  name: angular-deployment
   labels:
     app: web-portfolio
     tier: front-end
 spec:
   template: 
     metadata:
-      name: angular-pod
+      name: nginx-pod
       labels:
         app: web-portfolio
         tier: front-end
     spec:
       containers:
-        - name: nginx
+        - name: nginx-container
           image: nginx
           ports:
-          - containerPort: 80
+            - containerPort: 80
+              name: web
   replicas: 1  
   selector: 
     matchLabels:
