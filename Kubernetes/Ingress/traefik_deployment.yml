@@ -6,13 +6,8 @@ metadata:
     release: traefik
   name: traefik
   namespace: kube-system
-
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: traefik
-      release: traefik
   template:
     metadata:
       labels:
