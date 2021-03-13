@@ -5,7 +5,9 @@ metadata:
   namespace: kube-system
 spec:
   selector:
-    k8s-app: traefik-ingress-lb
+    matchLabels:
+      app: traefik
+      release: traefik
   ports:
     - protocol: TCP
       port: 80

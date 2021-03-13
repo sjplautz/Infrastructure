@@ -3,21 +3,18 @@ kind: Deployment
 metadata:
   name: traffic-app-deployment
   labels:
-    app: web-portfolio
-    tier: back-end
+    app: traffic-app
 spec:
+  replicas: 2  
+  selector: 
+    matchLabels:
+      app: traffic-app
   template: 
     metadata:
       name: traffic-app-pod
       labels:
-        app: web-portfolio
-        tier: back-end
+        app: traffic-app
     spec:
       containers:
-        - name: hello-world
+        - name: hello-world-container
           image: hello-world
-  replicas: 2  
-  selector: 
-    matchLabels:
-      app: web-portfolio
-      tier: back-end
