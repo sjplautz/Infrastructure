@@ -43,9 +43,8 @@ spec:
             - --certificatesresolvers.default.acme.storage=acme.json
             - --certificatesresolvers.default.acme.tlschallenge
             # Use the staging ACME server. Uncomment this while testing to prevent
-            # hitting rate limits in production.
-            - --certificatesresolvers.default.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/dir
-        ports:
+            - --certificatesresolvers.default.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+          ports:
             - name: http
               containerPort: 80
               hostPort: 80
