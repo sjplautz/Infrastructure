@@ -6,7 +6,7 @@ metadata:
     app: traffic-app
     tier: front-end
 spec:
-  type: nodePort
+  type: NodePort
   selector:
     app: traffic-app
     tier: front-end
