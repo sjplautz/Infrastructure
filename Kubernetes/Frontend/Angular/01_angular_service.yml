@@ -15,4 +15,4 @@ spec:
       protocol: TCP
       nodePort: 35269
       port: 443
-      targetport: 80
+      targetPort: 80
