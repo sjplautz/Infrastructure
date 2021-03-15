@@ -25,4 +25,4 @@ spec:
             - name: http
               containerPort: 80
   nodeSelector:
-    webservice_node: "true"
+    webserver_node: "true"
