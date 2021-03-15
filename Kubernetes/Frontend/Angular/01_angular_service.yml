@@ -6,11 +6,13 @@ metadata:
     app: traffic-app
     tier: front-end
 spec:
-  type: ClusterIP
+  type: nodePort
   selector:
     app: traffic-app
     tier: front-end
   ports:
-    - protocol: TCP
-      port: 80
-      name: http
+    - name: http
+      protocol: TCP
+      nodePort: 35269
+      port: 443
+      targetport: 80
