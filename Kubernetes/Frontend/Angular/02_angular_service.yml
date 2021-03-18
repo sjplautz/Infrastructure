@@ -6,13 +6,11 @@ metadata:
     app: web-portfolio
     tier: front-end
 spec:
-  type: NodePort
   selector:
     app: web-portfolio
     tier: front-end
   ports:
     - name: http
       protocol: TCP
-      nodePort: 32700
-      port: 443
+      port:  80
       targetPort: 80
