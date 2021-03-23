@@ -55,4 +55,4 @@ spec:
               containerPort: 8080
               hostPort: 8080
       nodeSelector:
-        ingress: "true"
+        ingress_server: "true"

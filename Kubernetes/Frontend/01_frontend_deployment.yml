@@ -1,28 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: angular-deployment
+  name: front-end-deployment
   labels:
     app: web-portfolio
     tier: front-end
 spec:
-  replicas: 1  
+  replicas: 2  
   selector: 
     matchLabels:
       app: web-portfolio
       tier: front-end
   template: 
     metadata:
-      name: nginx-pod
+      name: front-end-pod
       labels:
         app: web-portfolio
         tier: front-end
     spec:
       containers:
-        - name: nginx-container
-          image: nginx
+        - name: angular-container
+          image: sjplautz/web-portfolio:frontend_app_image
           ports:
             - name: http
               containerPort: 80
+          imagePullPolicy: Always
       nodeSelector:
-        webserver_node: "true"
+        web-server: "true"
