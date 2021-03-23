@@ -1,7 +1,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: angular-ingress-route
+  name: frontend-route
 spec:
   entryPoints:
     - web
@@ -9,5 +9,5 @@ spec:
     - match: Host(`sjplautz.com`)
       kind: Rule
       services:
-        - name: angular-service
+        - name: frontend-service
           port: 80
