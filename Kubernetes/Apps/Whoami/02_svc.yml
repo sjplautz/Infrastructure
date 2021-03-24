@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: whoami-svc
+spec:
+  ports:
+  - port: 80
+    name: web
+    protocol: TCP
+  selector:
+    app: whoami-app

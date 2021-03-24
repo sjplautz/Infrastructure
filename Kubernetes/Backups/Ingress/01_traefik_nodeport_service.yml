@@ -4,6 +4,7 @@ metadata:
   annotations:
     meta.helm.sh/release-name: traefik
     meta.helm.sh/release-namespace: default
+    load-balancer.hetzner.cloud/location: fsn1
   creationTimestamp: "2021-03-22T15:58:44Z"
   labels:
     app.kubernetes.io/instance: traefik

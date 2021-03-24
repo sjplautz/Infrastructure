@@ -1,29 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: front-end-deployment
+  name: frontend-dep
   labels:
-    app: web-portfolio
-    tier: front-end
+    app: web-potfolio
+    tier: frontend
 spec:
   replicas: 2  
   selector: 
     matchLabels:
       app: web-portfolio
-      tier: front-end
+      tier: frontend
   template: 
     metadata:
-      name: front-end-pod
+      name: frontend-pod
       labels:
         app: web-portfolio
-        tier: front-end
+        tier: frontend
     spec:
       containers:
-        - name: angular-container
+        - name: frontend-container
           image: sjplautz/web-portfolio:frontend_app_image
           ports:
             - name: http
               containerPort: 80
           imagePullPolicy: Always
-      nodeSelector:
-        web-server: "true"
