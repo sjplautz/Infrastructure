@@ -1,14 +1,22 @@
 version: "3"
+
+volumes: 
+        jenkins-data:
+                external: true
+        jenkins-log:
+                external: true
+
 services:
         jenkins:
-                image: jenkins/jenkins
-                container_name: jenkins
+                image: myjenkins
+                container_name: myjenkins
                 ports:
                         - "8080:8080"
                 volumes:
-                        - ${JENKINS_DATA_VOLUME}:/var/jenkins_home
-                        - ${JENKINS_LOG_VOLUME}:/var/log/jenkins
+                        - jenkins-data:/var/jenkins_home
+                        - jenkins-log:/var/log/jenkins
                 networks:
                         - net
+
 networks:
-        net: 
+        net:
