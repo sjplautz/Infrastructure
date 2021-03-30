@@ -1,14 +1,16 @@
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
   name: frontend-route
-  annotations:
-    kubernetes.io/ingress.class: "traefik"
+  namespace: default
 spec:
-  rules:
-  - http:
-      paths:
-      - path: /
-        backend:
-          serviceName: frontend-svc
-          servicePort: 80
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`splautz.com`)
+      services:
+        - name: frontend-svc
+          port: 80
+  tls:
+    certResolver: le
