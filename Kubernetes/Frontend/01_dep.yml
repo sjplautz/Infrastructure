@@ -18,6 +18,8 @@ spec:
         app: web-portfolio
         tier: frontend
     spec:
+      imagePullSecrets:
+      - name: dockerhub-regcreds
       containers:
         - name: frontend-container
           image: sjplautz/web-portfolio:frontend_app_image
