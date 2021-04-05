@@ -10,6 +10,9 @@ services:
         jenkins:
                 build:
                         context: ./
+                        args:
+                                HOST_UID: ${HOST_UID}
+                                HOST_GID: ${HOST_GID}
                 image: myjenkins
                 container_name: myjenkins
                 ports:
