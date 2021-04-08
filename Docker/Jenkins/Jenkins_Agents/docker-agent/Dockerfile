@@ -1,4 +1,4 @@
-FROM jenkins/inbound-agent:4.7-1-alpine AS agent
+FROM jenkins/inbound-agent:4.7-1 AS agent
 
 # agent template must bind mount the docker socket
 USER root
