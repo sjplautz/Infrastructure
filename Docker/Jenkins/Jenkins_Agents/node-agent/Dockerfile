@@ -4,7 +4,7 @@ FROM jenkins/inbound-agent
 USER root
 COPY --from=node /usr/local/bin /usr/local/bin
 COPY --from=node /opt /opt
-COPY --from=node /usr/local/lib/node_modules/npm /usr/local/bin/node_modules/npm
+COPY --from=node /usr/local/lib/node_modules /usr/local/bin/node_modules
 
 USER jenkins
 ENTRYPOINT ["/usr/local/bin/jenkins-agent"]
