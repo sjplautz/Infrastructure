@@ -1,5 +1,6 @@
 FROM jenkins/inbound-agent:4.7-1-alpine AS agent
 
+# agent template must bind mount the docker socket
 USER root
 RUN apt-get -y update 
 RUN apt-get update && \
@@ -19,5 +20,6 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.28.6/docker-c
  chmod +x /usr/local/bin/docker-compose && \
  ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
+# must use sudo to access docker daemon as jenkins
 USER jenkins
 ENTRYPOINT ["/usr/local/bin/jenkins-agent"]
