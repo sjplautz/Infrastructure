@@ -22,7 +22,7 @@ spec:
       - name: dockerhub-regcreds
       containers:
         - name: frontend-container
-          image: sjplautz/web-portfolio:frontend_app_image
+          image: sjplautz/web-portfolio:frontend-app
           ports:
             - name: http
               containerPort: 80
