@@ -44,6 +44,7 @@ pipeline {
                 sh 'mkdir .kube'
                 sh 'ls -la'
                 withCredentials([file(credentialsId: 'kubernetes', variable: 'kubeconfig')]){
+                    sh "echo $KUBECONFIG"
                     sh "cp \$kubeconfig .kube/config"
                     sh "export KUBECONFIG=${DIR}/.kube/config"
                 }
