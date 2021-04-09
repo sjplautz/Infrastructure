@@ -32,8 +32,8 @@ pipeline {
             }
             steps{
                 sh 'echo updating deployments'
-                withCredentials([file(credentialsId: 'kubernetes', variable: 'kubeconfig-file')]){
-                    sh "cp \$kubeconfig-file ~.kube/config"
+                withCredentials([file(credentialsId: 'kubernetes', variable: 'kubeconfig')]){
+                    sh "cp \$kubeconfig ~/.kube/config"
                 }
                 sh "kubectl rollout restart deployment -n default frontend-dep"
             }
