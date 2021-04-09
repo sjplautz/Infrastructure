@@ -46,6 +46,8 @@ pipeline {
                 withCredentials([file(credentialsId: 'kubernetes', variable: 'kubeconfig')]){
                     sh "echo $KUBECONFIG"
                     sh "cp \$kubeconfig .kube/config"
+                    sh 'ls .kube/'
+                    sh 'cat .kube/config'
                     sh "export KUBECONFIG=${DIR}/.kube/config"
                 }
                 sh "kubectl rollout restart deployment -n default frontend-dep"
