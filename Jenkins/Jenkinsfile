@@ -35,7 +35,6 @@ pipeline {
                 withCredentials([file(credentialsId: 'kubernetes', variable: 'kubeconfig')]){
                     dir("/home/jenkins"){
                         sh "ls -la"
-                        sh "mkdir ~/.kube"
                         sh "cp \$kubeconfig .kube/config"
                     }
                 }
