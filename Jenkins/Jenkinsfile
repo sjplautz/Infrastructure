@@ -30,6 +30,9 @@ pipeline {
             agent {
                 label "kubernetes-agent"
             }
+            options{
+                skipDefaultCheckout()
+            }
             steps{
                 sh 'echo updating deployments'
                 withCredentials([file(credentialsId: 'kubernetes', variable: 'kubeconfig')]){
