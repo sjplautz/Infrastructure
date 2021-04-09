@@ -33,10 +33,11 @@ pipeline {
             steps{
                 sh 'echo updating deployments'
                 withCredentials([file(credentialsId: 'kubernetes', variable: 'kubeconfig')]){
-                    sh 'pwd'
-                    sh 'ls -la'
-                    sh "mkdir ~/.kube"
-                    sh "cp \$kubeconfig ~/.kube/config"
+                    dir("/home/jenkins"){
+                        sh "ls -la"
+                        sh "mkdir ~/.kube"
+                        sh "cp \$kubeconfig .kube/config"
+                    }
                 }
                 sh "kubectl rollout restart deployment -n default frontend-dep"
             }
