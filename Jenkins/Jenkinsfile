@@ -34,12 +34,18 @@ pipeline {
                 skipDefaultCheckout()
             }
             steps{
-                sh 'pwd'
+                def dir
+                script{
+                    dir = sh (
+                        script: 'pwd',
+                        returnStdout: true
+                    ).trim()
+                }
                 sh 'mkdir .kube'
                 sh 'ls -la'
                 withCredentials([file(credentialsId: 'kubernetes', variable: 'kubeconfig')]){
                     sh "cp \$kubeconfig .kube/config"
-                    sh "export KUBECONFIG=$(pwd)/.kube/config"
+                    sh "export KUBECONFIG=${dir}/.kube/config"
                 }
                 sh "kubectl rollout restart deployment -n default frontend-dep"
             }
