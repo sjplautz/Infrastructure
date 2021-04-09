@@ -35,6 +35,7 @@ pipeline {
             }
             steps{
                 sh 'echo updating deployments'
+                sh 'ls -la'
                 withCredentials([file(credentialsId: 'kubernetes', variable: 'kubeconfig')]){
                     dir("/home/jenkins"){
                         sh "ls -la"
