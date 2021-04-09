@@ -1,0 +1,46 @@
+def modifiedImages = []
+
+pipeline {
+    agent none
+
+    environment {
+        APPS = "frontend-app,traffic-app"
+    }
+
+    options{
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+    }    
+
+    stages {
+
+        stage('determine modified apps'){
+            agent{
+                label 'master'
+            }
+            steps{
+                script{
+                    // modifiedImages = getModifiedApps(APPS)
+                    modifiedImages = ["testimage1", "testimage2"]
+                    modifiedImages.each{ print it }
+                }
+            }
+        }
+
+        stage('build and push docker images') {
+            agent {
+                label "kubernetes-agent"
+            }
+            steps{
+                sh 'echo updating deployments'
+            }
+        }
+        
+    }
+
+    post {
+        always{
+            echo "all done"
+        }
+    }
+    
+}
