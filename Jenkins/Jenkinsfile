@@ -5,6 +5,7 @@ pipeline {
 
     environment {
         APPS = "frontend-app,traffic-app"
+        DIR = ""
     }
 
     options{
@@ -34,9 +35,8 @@ pipeline {
                 skipDefaultCheckout()
             }
             steps{
-                def dir
                 script{
-                    dir = sh (
+                    DIR = sh (
                         script: 'pwd',
                         returnStdout: true
                     ).trim()
@@ -45,7 +45,7 @@ pipeline {
                 sh 'ls -la'
                 withCredentials([file(credentialsId: 'kubernetes', variable: 'kubeconfig')]){
                     sh "cp \$kubeconfig .kube/config"
-                    sh "export KUBECONFIG=${dir}/.kube/config"
+                    sh "export KUBECONFIG=${DIR}/.kube/config"
                 }
                 sh "kubectl rollout restart deployment -n default frontend-dep"
             }
