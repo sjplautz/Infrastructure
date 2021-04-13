@@ -1,0 +1,143 @@
+def modifiedApps = []
+
+pipeline {
+    agent none
+
+    environment {
+        REGISTRY = "sjplautz/web-portfolio"
+        DOCKER_CREDS = credentials('dockerhub-creds')
+        APPS = "frontend-app,traffic-app"
+    }
+
+    options{
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+    }    
+
+    stages {
+
+        stage('determine modified apps'){
+            agent{
+                label 'master'
+            }
+            steps{
+                script{
+                    modifiedApps = getModifiedApps(APPS)
+                    modifiedApps.each{ print it }
+                }
+            }
+        }
+
+        stage('fetch dependencies and build web artifacts') {
+            agent{
+                label 'node-agent'
+            }
+            steps {
+                apply(modifiedApps, this.&getdeps)
+                apply(modifiedApps, this.&compileApps)
+            }
+        }
+
+        stage('build and push docker images') {
+            agent {
+                label "docker-agent"
+            }
+            steps{
+                sh "docker login -u $DOCKER_CREDS_USR -p $DOCKER_CREDS_PSW"
+                apply(modifiedApps, this.&buildContainers)
+            }
+        }
+        
+    }
+
+    post {
+        always{
+            echo "all done"
+        }
+    }
+    
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// Groovy Scripts
+////////////////////////////////////////////////////////////////////////////////////
+
+// need to have logic to handle case where last build for a file was unsuccessful?
+// perhaps necessary if build fails for non-scropt related errors (ie a misconfigured endpoint?)
+def getModifiedApps(applications){
+    modified = [] 
+    def apps = applications.split(",")
+    for(app in apps){
+        if(checkFolderForDiffs(app + "/"))
+            modified.add(app)
+    }
+    return modified
+}
+
+def apply (collection, func){
+    for (item in collection){
+        func(item)
+    }
+}
+
+def getdeps(app){
+    sh "echo ${app}"
+    dir("${app}"){
+        if(app == "frontend-app")
+            getFrontendDeps()
+        else
+            getPythonDeps()
+    }
+}
+
+def compileApps(app){
+    sh "echo ${app}"
+    dir("${app}"){
+        if(app == "frontend-app")
+            compileFrontend()
+        else
+            compilePython()
+    }
+}
+
+def buildContainers(app){
+    sh "echo ${app}"
+    dir("${app}"){
+        if(app == "frontend-app")
+            unstash 'dist'
+        sh "docker build -t ${REGISTRY}:${app} ."
+        sh "docker push ${REGISTRY}:${app}"
+        sh "docker rmi ${REGISTRY}:${app}" 
+    }
+}
+
+def getFrontendDeps(){
+    sh 'yarn'
+}
+
+def getPythonDeps(){
+    echo "got python project deps"
+}
+
+def compileFrontend(){
+    sh 'yarn build:prod'
+    stash includes: 'dist/', name: 'dist'
+}
+
+def compilePython(){
+    echo "compiled python project"
+}
+
+/*
+ * Check a folder if changed in the latest commit.
+ * Returns true if changed, or false if no changes.
+ */
+def checkFolderForDiffs(path) {
+    try {
+        // git diff will return 1 for changes (failure) which is caught in catch, or
+        // 0 meaning no changes 
+        sh "git diff --quiet --exit-code HEAD~1..HEAD ${path}"
+        return false
+    } catch (err) {
+        return true
+    }
+}
