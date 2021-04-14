@@ -1,5 +1,12 @@
 version: "3"
 
+volumes:
+        jenkins-data:
+        jenkins-logs:
+
+networks:
+        net:
+
 services:
         jenkins:
                 build:
@@ -14,10 +21,3 @@ services:
                         - jenkins-task-server-logs:/var/log/jenkins
                 networks:
                         - net
-                        
-volumes:
-        jenkins-task-server-data:
-        jenkins-task-server-logs:
-
-networks:
-  net:

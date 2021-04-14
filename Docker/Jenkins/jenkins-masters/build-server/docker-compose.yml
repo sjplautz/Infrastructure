@@ -2,9 +2,10 @@ version: "3"
 
 volumes: 
         jenkins-data:
-                external: true
         jenkins-logs:
-                external: true
+
+networks:
+        net:
 
 services:
         jenkins:
@@ -21,5 +22,7 @@ services:
                 volumes:
                         - jenkins-data:/var/jenkins_home
                         - jenkins-logs:/var/log/jenkins
-                        # adds access to docker daemon for jenkins docker agents
+                        # mount the localhost docker daemon socket 
                         - /var/run/docker.sock:/var/run/docker.sock
+                networks:
+                        - net
