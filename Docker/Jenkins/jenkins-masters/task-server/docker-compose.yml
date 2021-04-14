@@ -12,6 +12,8 @@ services:
                 volumes:
                         - jenkins-task-server-data:/var/jenkins_home
                         - jenkins-task-server-logs:/var/log/jenkins
+                networks:
+                        - net
                         
 volumes:
         jenkins-task-server-data:
