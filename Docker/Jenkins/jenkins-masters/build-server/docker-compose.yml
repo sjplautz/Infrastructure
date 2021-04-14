@@ -11,9 +11,6 @@ services:
         jenkins-build-server:
                 build:
                         context: ./
-                        args:
-                                HOST_UID: ${HOST_UID}
-                                HOST_GID: ${HOST_GID}
                 image: "sjplautz/web-portfolio:jenkins-build-server"
                 container_name: jenkins-build-server
                 ports:
