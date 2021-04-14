@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+        jenkins:
+                build:
+                        context: ./
+                image: "sjplautz/web-portfolio:jenkins-task-server"
+                container_name: jenkins-task-server
+                ports:
+                        - "${HOST_WEB_UI_PORT}:8080"
+                        - "${HOST_API_PORT}:50000"
+                volumes:
+                        - jenkins-task-server-data:/var/jenkins_home
+                        - jenkins-task-server-logs:/var/log/jenkins
+                        
+volumes:
+        jenkins-task-server-data:
+        jenkins-task-server-logs:
+
+networks:
+  net:

@@ -13,8 +13,8 @@ services:
                         args:
                                 HOST_UID: ${HOST_UID}
                                 HOST_GID: ${HOST_GID}
-                image: myjenkins
-                container_name: myjenkins
+                image: "sjplautz/web-portfolio:jenkins-build-server"
+                container_name: jenkins-build-server
                 ports:
                         - "${HOST_WEB_UI_PORT}:8080"
                         - "${HOST_API_PORT}:50000"
