@@ -8,7 +8,7 @@ networks:
         net:
 
 services:
-        jenkins:
+        jenkins-build-server:
                 build:
                         context: ./
                         args:

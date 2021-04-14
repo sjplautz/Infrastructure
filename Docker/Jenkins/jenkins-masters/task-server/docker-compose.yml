@@ -8,7 +8,7 @@ networks:
         net:
 
 services:
-        jenkins:
+        jenkins-task-server:
                 build:
                         context: ./
                 image: "sjplautz/web-portfolio:jenkins-task-server"
