@@ -53,7 +53,7 @@ pipeline {
 def updateDeployment(image){
     println("updating deployment for image: ${image}")
     tokens = image.split('-')
-    deployment = token[0] + '-dep'
+    deployment = tokens[0] + '-dep'
     print "deployment name: " + deployment
     
     // sh"kubectl --kubeconfig ${KUBECONFIG} get deployments.apps"
