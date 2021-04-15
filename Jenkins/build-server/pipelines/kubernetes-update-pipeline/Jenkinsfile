@@ -20,7 +20,7 @@ pipeline {
             }
             steps{
                 script{
-                    echo push-data
+                    echo params.push-data
                     modifiedImages = getModifiedImages(APPS)
                     println("modified images:")
                     modifiedImages.each{ print it }
