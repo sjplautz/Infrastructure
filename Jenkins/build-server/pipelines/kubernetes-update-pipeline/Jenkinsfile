@@ -36,9 +36,10 @@ pipeline {
             }
             steps{
                 sh "ls -la"
-                def hashes = readFile('test.txt')
-                print hashes
                 script{
+                    def hashes = readFile('test.txt')
+                    print hashes
+                    
                     println(images)
                     modifiedImages = getModifiedImages(APPS)
                     println("modified images:")
