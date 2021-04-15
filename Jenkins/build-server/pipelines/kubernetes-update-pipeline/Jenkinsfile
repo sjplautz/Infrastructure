@@ -20,8 +20,8 @@ pipeline {
             }
             steps{
                 script{
-                    // modifiedImages = getModifiedApps(APPS)
-                    modifiedImages = ["testimage1", "testimage2"]
+                    modifiedImages = getModifiedImages(APPS)
+                    println("modified images:")
                     modifiedImages.each{ print it }
                 }
             }
@@ -38,27 +38,7 @@ pipeline {
                 skipDefaultCheckout()
             }
             steps{
-                script{
-                    DIR = sh (
-                        script: 'pwd',
-                        returnStdout: true
-                    ).trim()
-                }
-                sh 'mkdir .kube'
-                sh 'ls -la'
-                sh "kubectl --kubeconfig $KUBECONFIG get pods --all-namespaces"
-                // jsh 'kubectl get no'
-                /*
-                withCredentials([file(credentialsId: 'remote-kubeconfig', variable: 'kubeconfig')]){
-                    // sh "echo $KUBECONFIG"
-                    // sh "cp \$kubeconfig .kube/config"
-                    // sh 'ls .kube/'
-                    // sh 'cat .kube/config'
-                    // sh "export KUBECONFIG=${DIR}/.kube/config"
-                    sh "kubectl get no"
-                }
-                */
-                // sh "kubectl rollout restart deployment -n default frontend-dep"
+                apply(modifiedImages, this.&updateDeployment)
             }
         }
         
@@ -70,4 +50,33 @@ pipeline {
         }
     }
     
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// Groovy Scripts
+////////////////////////////////////////////////////////////////////////////////////
+
+def getModifiedImages(applications){
+    modified = [] 
+    def apps = applications.split(",")
+    for(app in apps){
+        if(checkDiffs(app + "/"))
+            modified.add(app)
+    }
+    return modified
+}
+
+def apply (collection, func){
+    for (item in collection){
+        func(item)
+    }
+}
+
+def checkDiffs(appPath){
+    return true
+}
+
+def updateImage(image){
+    println("updating deployment for image: ${image}")
+    sh "kubectl --kubeconfig ${KUBECONFIG} get deployments.apps"
 }

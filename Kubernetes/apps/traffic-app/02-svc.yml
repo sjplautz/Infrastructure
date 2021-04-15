@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: traffic-app-svc
+  name: traffic-svc
 spec:
   ports:
   - port: 80
