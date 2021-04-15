@@ -35,6 +35,7 @@ pipeline {
                 label 'master'
             }
             steps{
+                sh "ls -la"
                 def hashes = readFile('test.txt')
                 print hashes
                 script{
