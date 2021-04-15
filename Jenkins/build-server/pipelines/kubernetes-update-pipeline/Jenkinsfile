@@ -1,12 +1,6 @@
-def modifiedImages = []
 
 pipeline {
     agent none
-
-    environment {
-        APPS = "frontend-app,traffic-app"
-        DIR = ""
-    }
 
     options{
         buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
@@ -15,11 +9,11 @@ pipeline {
     triggers {
         GenericTrigger(
             genericVariables: [
-                [key: 'images', value: '$.push_data.images[*]']
+                [key: 'image', value: '$.push_data.tag']
             ],
 
             token: 'kubernetes_update',
-            causeString: 'Triggered on $images',
+            causeString: 'Triggered on $image',
 
             printContributedVariables: true,
             printPostContent: true,
@@ -30,25 +24,7 @@ pipeline {
 
     stages {
 
-        stage('determine modified apps'){
-            agent{
-                label 'master'
-            }
-            steps{
-                sh "ls -la"
-                script{
-                    def hashes = readFile('test.txt')
-                    print hashes
-                    
-                    println(images)
-                    modifiedImages = getModifiedImages(APPS)
-                    println("modified images:")
-                    modifiedImages.each{ print it }
-                }
-            }
-        }
-
-        stage('build and push docker images') {
+        stage('update kubernetes deployment') {
             agent {
                 label "kubernetes-agent"
             }
@@ -59,16 +35,11 @@ pipeline {
                 skipDefaultCheckout()
             }
             steps{
-                apply(modifiedImages, this.&updateDeployment)
+                println("image to be updated: ${image}")
+                updateDeployment(image)
             }
         }
         
-    }
-
-    post {
-        always{
-            echo "all done"
-        }
     }
     
 }
@@ -77,27 +48,10 @@ pipeline {
 // Groovy Scripts
 ////////////////////////////////////////////////////////////////////////////////////
 
-def getModifiedImages(applications){
-    modified = [] 
-    def apps = applications.split(",")
-    for(app in apps){
-        if(checkDiffs(app + "/"))
-            modified.add(app)
-    }
-    return modified
-}
-
-def apply (collection, func){
-    for (item in collection){
-        func(item)
-    }
-}
-
-def checkDiffs(appPath){
-    return true
-}
-
 def updateDeployment(image){
     println("updating deployment for image: ${image}")
-    sh "kubectl --kubeconfig ${KUBECONFIG} get deployments.apps"
+    tokens = image.split('-')
+    deployment = token[0] + '-dep'
+    print "deployment name: " + deployment
+    // sh"kubectl --kubeconfig ${KUBECONFIG} get deployments.apps"
 }
