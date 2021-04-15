@@ -51,10 +51,8 @@ pipeline {
 ////////////////////////////////////////////////////////////////////////////////////
 
 def updateDeployment(image){
-    println("updating deployment for image: ${image}")
     tokens = image.split('-')
     deployment = tokens[0] + '-dep'
-    print "deployment name: " + deployment
-    
-    // sh"kubectl --kubeconfig ${KUBECONFIG} get deployments.apps"
+    print "updating deployment: " + deployment
+    sh "kubectl --kubeconfig ${KUBECONFIG} rollout restart deployment -n default ${deployment}"
 }
