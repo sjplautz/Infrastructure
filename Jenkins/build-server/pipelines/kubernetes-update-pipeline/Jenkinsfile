@@ -36,7 +36,7 @@ pipeline {
             }
             steps{
                 script{
-                println("image to be updated: ${image}")
+                    println("image to be updated: ${image}")
                     updateDeployment(image)
                 }
             }
