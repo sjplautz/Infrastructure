@@ -19,7 +19,7 @@ pipeline {
                 label 'master'
             }
             steps{
-                sh "echo $data"
+                print data
                 script{
                     modifiedImages = getModifiedImages(APPS)
                     println("modified images:")
