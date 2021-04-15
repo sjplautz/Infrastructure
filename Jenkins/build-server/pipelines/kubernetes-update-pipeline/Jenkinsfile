@@ -31,6 +31,9 @@ pipeline {
             agent {
                 label "kubernetes-agent"
             }
+            environment{
+                KUBECONFIG = credentials('remote-kubeconfig')
+            }
             options{
                 skipDefaultCheckout()
             }
@@ -43,9 +46,10 @@ pipeline {
                 }
                 sh 'mkdir .kube'
                 sh 'ls -la'
-                sh 'kubectl get no'
+                sh "kubectl --kubeconfig $KUBECONFIG get pods --all-namespaces"
+                // jsh 'kubectl get no'
                 /*
-                withCredentials([file(credentialsId: 'kubernetes', variable: 'kubeconfig')]){
+                withCredentials([file(credentialsId: 'remote-kubeconfig', variable: 'kubeconfig')]){
                     // sh "echo $KUBECONFIG"
                     // sh "cp \$kubeconfig .kube/config"
                     // sh 'ls .kube/'
