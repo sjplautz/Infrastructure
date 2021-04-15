@@ -76,7 +76,7 @@ def checkDiffs(appPath){
     return true
 }
 
-def updateImage(image){
+def updateDeployment(image){
     println("updating deployment for image: ${image}")
     sh "kubectl --kubeconfig ${KUBECONFIG} get deployments.apps"
 }
