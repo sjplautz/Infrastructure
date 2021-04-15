@@ -19,8 +19,8 @@ pipeline {
                 label 'master'
             }
             steps{
+                sh "echo $data"
                 script{
-                    echo params.push-data
                     modifiedImages = getModifiedImages(APPS)
                     println("modified images:")
                     modifiedImages.each{ print it }
