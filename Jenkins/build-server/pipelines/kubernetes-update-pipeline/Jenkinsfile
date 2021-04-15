@@ -35,8 +35,10 @@ pipeline {
                 skipDefaultCheckout()
             }
             steps{
-                println("image to be updated: ${image}")
-                updateDeployment(image)
+                script{
+                    println("image to be updated: ${image}")
+                    updateDeployment(image)
+                }
             }
         }
         
@@ -53,5 +55,6 @@ def updateDeployment(image){
     tokens = image.split('-')
     deployment = token[0] + '-dep'
     print "deployment name: " + deployment
+    
     // sh"kubectl --kubeconfig ${KUBECONFIG} get deployments.apps"
 }
