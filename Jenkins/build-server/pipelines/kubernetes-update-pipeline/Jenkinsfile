@@ -10,7 +10,22 @@ pipeline {
 
     options{
         buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
-    }    
+    }
+
+    triggers {
+        GenericTrigger(
+            genericVariables: [
+                [key: 'images', value: '$.push_data.images[*]']
+            ],
+
+            causeString: 'Triggered on $images',
+
+            printContributedVariables: true,
+            printPostContent: true,
+
+            silentResponse: false
+        )
+  }    
 
     stages {
 
@@ -20,7 +35,7 @@ pipeline {
             }
             steps{
                 script{
-                    println(data)
+                    println(images)
                     modifiedImages = getModifiedImages(APPS)
                     println("modified images:")
                     modifiedImages.each{ print it }
