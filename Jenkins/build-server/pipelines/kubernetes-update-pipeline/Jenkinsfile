@@ -35,6 +35,8 @@ pipeline {
                 label 'master'
             }
             steps{
+                def hashes = readFile('test.txt')
+                print hashes
                 script{
                     println(images)
                     modifiedImages = getModifiedImages(APPS)
