@@ -19,8 +19,8 @@ pipeline {
                 label 'master'
             }
             steps{
-                print data
                 script{
+                    println(data)
                     modifiedImages = getModifiedImages(APPS)
                     println("modified images:")
                     modifiedImages.each{ print it }
