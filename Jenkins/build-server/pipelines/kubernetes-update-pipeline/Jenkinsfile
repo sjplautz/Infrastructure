@@ -43,6 +43,8 @@ pipeline {
                 }
                 sh 'mkdir .kube'
                 sh 'ls -la'
+                sh 'kubectl get no'
+                /*
                 withCredentials([file(credentialsId: 'kubernetes', variable: 'kubeconfig')]){
                     // sh "echo $KUBECONFIG"
                     // sh "cp \$kubeconfig .kube/config"
@@ -51,6 +53,7 @@ pipeline {
                     // sh "export KUBECONFIG=${DIR}/.kube/config"
                     sh "kubectl get no"
                 }
+                */
                 // sh "kubectl rollout restart deployment -n default frontend-dep"
             }
         }
