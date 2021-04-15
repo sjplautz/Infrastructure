@@ -80,7 +80,7 @@ def apply (collection, func){
 }
 
 def getdeps(app){
-    sh "echo ${app}"
+    print "getting dependencies for app: " + app
     dir("${app}"){
         if(app == "frontend-app")
             getFrontendDeps()
@@ -90,7 +90,7 @@ def getdeps(app){
 }
 
 def compileApps(app){
-    sh "echo ${app}"
+    print "compiling app: " + app
     dir("${app}"){
         if(app == "frontend-app")
             compileFrontend()
@@ -100,7 +100,7 @@ def compileApps(app){
 }
 
 def buildContainers(app){
-    sh "echo ${app}"
+    print "building container for app: " + app
     dir("${app}"){
         if(app == "frontend-app")
             unstash 'dist'
@@ -115,7 +115,7 @@ def getFrontendDeps(){
 }
 
 def getPythonDeps(){
-    echo "got python project deps"
+    print "got python project deps"
 }
 
 def compileFrontend(){
@@ -124,7 +124,7 @@ def compileFrontend(){
 }
 
 def compilePython(){
-    echo "compiled python project"
+    print "compiled python project"
 }
 
 /*
