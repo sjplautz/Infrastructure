@@ -18,7 +18,7 @@ spec:
       imagePullSecrets:
       - name: dockerhub-regcreds
       containers:
-        - name: traffic-contain
+        - name: traffic-container
           image: sjplautz/web-portfolio:traffic-app
           ports:
             - name: http
