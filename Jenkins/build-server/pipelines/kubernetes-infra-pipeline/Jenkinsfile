@@ -1,0 +1,57 @@
+
+pipeline {
+    agent none
+
+    options{
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+    }
+
+    triggers {
+        GenericTrigger(
+            genericVariables: [
+                [key: 'image', value: '$.push_data.tag']
+            ],
+
+            token: 'kubernetes_update',
+            causeString: 'Triggered on $image',
+
+            printContributedVariables: true,
+            printPostContent: true,
+
+            silentResponse: false
+        )
+  }    
+
+    stages {
+
+        stage('update kubernetes deployment') {
+            agent {
+                label "kubernetes-agent"
+            }
+            environment{
+                KUBECONFIG = credentials('remote-kubeconfig')
+            }
+            options{
+                skipDefaultCheckout()
+            }
+            steps{
+                script{
+                    updateDeployment(image)
+                }
+            }
+        }
+        
+    }
+    
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// Groovy Scripts
+////////////////////////////////////////////////////////////////////////////////////
+
+def updateDeployment(image){
+    tokens = image.split('-')
+    deployment = tokens[0] + '-dep'
+    print "updating deployment: " + deployment
+    sh "kubectl --kubeconfig ${KUBECONFIG} rollout restart deployment -n default ${deployment}"
+}

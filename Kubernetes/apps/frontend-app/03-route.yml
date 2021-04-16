@@ -12,10 +12,5 @@ spec:
       services:
         - name: frontend-svc
           port: 80
-    # - kind: Rule
-    #   match: Host(`www.splautz.com`)
-    #   services:
-    #     - name: frontend-svc
-    #       port: 80
   tls:
     certResolver: le

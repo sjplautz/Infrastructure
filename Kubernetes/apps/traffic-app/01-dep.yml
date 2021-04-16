@@ -11,10 +11,16 @@ spec:
       app: traffic-app
   template: 
     metadata:
-      name: traffic-app-pod
+      name: traffic-pod
       labels:
         app: traffic-app
     spec:
+      imagePullSecrets:
+      - name: dockerhub-regcreds
       containers:
-        - name: hello-world-container
-          image: wouterm/helloworld
+        - name: traffic-container
+          image: sjplautz/web-portfolio:traffic-app
+          ports:
+            - name: http
+              containerPort: 80
+          imagePullPolicy: Always

@@ -3,20 +3,17 @@ kind: Deployment
 metadata:
   name: frontend-dep
   labels:
-    app: web-potfolio
-    tier: frontend
+    app: frontend-app
 spec:
   replicas: 2  
   selector: 
     matchLabels:
-      app: web-portfolio
-      tier: frontend
+      app: frontend-app
   template: 
     metadata:
       name: frontend-pod
       labels:
         app: web-portfolio
-        tier: frontend
     spec:
       imagePullSecrets:
       - name: dockerhub-regcreds

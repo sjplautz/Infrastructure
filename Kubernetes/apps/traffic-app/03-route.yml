@@ -1,17 +1,16 @@
----
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: traffic-route
+  name: frontend-route
   namespace: default
 spec:
   entryPoints:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`splautz.com`) && Path(`/traffic-app`)
+      match: Host(`splautz.com`) && PathPrefix(`/traffic-app`)
       services:
-        - name: traffic-app-svc
+        - name: frontend-svc
           port: 80
   tls:
     certResolver: le

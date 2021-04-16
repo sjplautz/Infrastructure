@@ -3,12 +3,10 @@ kind: Service
 metadata: 
   name: frontend-svc
   labels:
-    app: web-portfolio
-    tier: frontend
+    app: frontend-app
 spec:
   selector:
-    app: web-portfolio
-    tier: frontend
+    app: frontend-app
   ports:
     - name: http
       protocol: TCP
