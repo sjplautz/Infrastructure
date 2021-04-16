@@ -82,8 +82,9 @@ def apply (collection, func){
 }
 
 def updateDeployment(deployment){
-    print "applying folder: " + deployment
-    sh "kubectl --kubeconfig ${KUBECONFIG} apply -f ${deployment}"
+    folder = APPS_PATH + deployment + "/"
+    print "applying folder: " + folder
+    sh "kubectl --kubeconfig ${KUBECONFIG} apply -f ${folder}"
 }
 
 def checkFolderForDiffs(path) {
