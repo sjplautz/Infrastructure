@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: traffic-dep
+  labels:
+    app: traffic-app
+spec:
+  replicas: 2  
+  selector: 
+    matchLabels:
+      app: traffic-app
+  template: 
+    metadata:
+      name: traffic-pod
+      labels:
+        app: traffic-app
+    spec:
+      imagePullSecrets:
+      - name: dockerhub-regcreds
+      containers:
+        - name: traffic-container
+          image: sjplautz/web-portfolio:traffic-app
+          ports:
+            - name: http
+              containerPort: 80
+          imagePullPolicy: Always
