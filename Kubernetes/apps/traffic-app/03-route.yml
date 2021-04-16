@@ -10,7 +10,7 @@ spec:
     - kind: Rule
       match: Host(`splautz.com`) && PathPrefix(`/traffic-app`)
       services:
-        - name: frontend-svc
+        - name: traffic-svc
           port: 80
   tls:
     certResolver: le
