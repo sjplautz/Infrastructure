@@ -19,7 +19,7 @@ spec:
       imagePullSecrets:
       - name: dockerhub-regcreds
       containers:
-        - name: frontend-container
+        - name: frontend-containe
           image: sjplautz/web-portfolio:frontend-app
           ports:
             - name: http

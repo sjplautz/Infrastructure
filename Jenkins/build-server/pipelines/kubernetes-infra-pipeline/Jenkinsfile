@@ -83,6 +83,8 @@ def apply (collection, func){
 
 def updateDeployment(deployment){
     folder = APPS_PATH + deployment + "/"
+    print "deleting old resources from folder: " + folder
+    sh "kubectl --kubeconfig ${KUBECONFIG} delete -f ${folder}"
     print "applying folder: " + folder
     sh "kubectl --kubeconfig ${KUBECONFIG} apply -f ${folder}"
 }
