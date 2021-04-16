@@ -52,7 +52,7 @@ pipeline {
             }
             steps{
                 script{
-                    apply(modifiedApps, this.&updateDeployment())
+                    apply(modifiedApps, this.&updateDeployment)
                 }
             }
         }
