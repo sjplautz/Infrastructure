@@ -1,45 +1,50 @@
+def modifiedApps = []
 
 pipeline {
     agent none
 
-    options{
-        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+    environment {
+        APPS_PATH = "Kubernetes/apps/"
+        APPS = "frontend-app,traffic-app"
     }
 
-    triggers {
-        GenericTrigger(
-            genericVariables: [
-                [key: 'image', value: '$.push_data.tag']
-            ],
-
-            token: 'kubernetes_update',
-            causeString: 'Triggered on $image',
-
-            printContributedVariables: true,
-            printPostContent: true,
-
-            silentResponse: false
-        )
-  }    
+    options{
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+    }    
 
     stages {
 
-        stage('update kubernetes deployment') {
+        stage('determine modified deployments'){
+            agent{
+                label 'master'
+            }
+            steps{
+                script{
+                    modifiedApps = getModifiedApps(APPS)
+                    modifiedApps.each{ print it }
+                }
+            }
+        }
+
+        stage('update modified deployments') {
+            // exectue this stage only when the apps folder has changed
+            when{
+                changeset "Kubernetes/apps/*"
+            }
             agent {
                 label "kubernetes-agent"
             }
             environment{
                 KUBECONFIG = credentials('remote-kubeconfig')
             }
-            options{
-                skipDefaultCheckout()
-            }
             steps{
                 script{
-                    updateDeployment(image)
+                    apply(modifiedApps, this.&updateDeployment())
                 }
             }
         }
+        
+    }
         
     }
     
@@ -49,9 +54,34 @@ pipeline {
 // Groovy Scripts
 ////////////////////////////////////////////////////////////////////////////////////
 
-def updateDeployment(image){
-    tokens = image.split('-')
-    deployment = tokens[0] + '-dep'
-    print "updating deployment: " + deployment
-    sh "kubectl --kubeconfig ${KUBECONFIG} rollout restart deployment -n default ${deployment}"
+def getModifiedApps(applications){
+    modified = [] 
+    def apps = applications.split(",")
+    for(app in apps){
+        if(checkFolderForDiffs(APPS_PATH + app + "/"))
+            modified.add(app)
+    }
+    return modified
+}
+
+def apply (collection, func){
+    for (item in collection){
+        func(item)
+    }
+}
+
+def updateDeployment(deployment){
+    print "applying folder: " + deployment
+    sh "kubectl --kubeconfig ${KUBECONFIG} apply -f ${deployment}"
+}
+
+def checkFolderForDiffs(path) {
+    try {
+        // git diff will return 1 for changes (failure) which is caught in catch, or
+        // 0 meaning no changes 
+        sh "git diff --quiet --exit-code HEAD~1..HEAD ${path}"
+        return false
+    } catch (err) {
+        return true
+    }
 }
