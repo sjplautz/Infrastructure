@@ -25,3 +25,4 @@ spec:
             - name: http
               containerPort: 80
           imagePullPolicy: Always
+          
