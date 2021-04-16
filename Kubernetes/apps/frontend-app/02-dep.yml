@@ -13,7 +13,7 @@ spec:
     metadata:
       name: frontend-pod
       labels:
-        app: web-portfolio
+        app: frontend-app
     spec:
       imagePullSecrets:
       - name: dockerhub-regcreds
