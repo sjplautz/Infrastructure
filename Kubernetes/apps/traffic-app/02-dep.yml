@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment 
 metadata:
   name: traffic-dep
+  namespace: default
   labels:
     app: traffic-app
 spec:
