@@ -13,6 +13,23 @@ pipeline {
     }    
 
     stages {
+        
+        stage('run pre-build checks'){
+            agent{
+                label 'master'
+            }
+            when{
+                not {
+                    changeset "Kubernetes/apps/*"
+                }
+            }
+            steps{
+                script{
+                    currentBuild.result = 'ABORTED'
+                    error("no changes to deployments, exiting early")
+                }
+            }
+        }
 
         stage('determine modified deployments'){
             agent{
@@ -27,10 +44,6 @@ pipeline {
         }
 
         stage('update modified deployments') {
-            // exectue this stage only when the apps folder has changed
-            when{
-                changeset "Kubernetes/apps/*"
-            }
             agent {
                 label "kubernetes-agent"
             }
