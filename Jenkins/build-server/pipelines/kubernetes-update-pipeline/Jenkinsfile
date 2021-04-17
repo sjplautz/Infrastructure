@@ -9,7 +9,7 @@ pipeline {
     }
 
     environment{
-        SCRIPTS_PATH = "/Jenkins/build-server/pipelines/kubernetes-update-pipeline"
+        SCRIPTS_PATH = "Jenkins/build-server/pipelines/kubernetes-update-pipeline"
     }
 
     triggers {
