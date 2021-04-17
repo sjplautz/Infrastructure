@@ -65,7 +65,7 @@ pipeline {
             }
             steps{
                 script{
-                    gv.apply(modifiedApps, this.&updateDeployment)
+                    gv.apply(modifiedApps, gv.&updateDeployment)
                 }
             }
         }
