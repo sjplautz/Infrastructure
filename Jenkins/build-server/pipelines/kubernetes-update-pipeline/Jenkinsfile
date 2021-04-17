@@ -30,7 +30,7 @@ pipeline {
 
     stages {
         
-        stage("init"){
+        stage("load scripts"){
             agent {
                 label "master"
             }
@@ -61,14 +61,3 @@ pipeline {
     }
     
 }
-
-////////////////////////////////////////////////////////////////////////////////////
-// Groovy Scripts
-////////////////////////////////////////////////////////////////////////////////////
-
-// def updateDeployment(image){
-//     tokens = image.split('-')
-//     deployment = tokens[0] + '-dep'
-//     print "updating deployment: " + deployment
-//     sh "kubectl --kubeconfig ${KUBECONFIG} rollout restart deployment -n default ${deployment}"
-// }
