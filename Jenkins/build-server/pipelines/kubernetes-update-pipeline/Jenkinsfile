@@ -8,6 +8,10 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
     }
 
+    environment{
+        SCRIPTS_PATH = "/Jenkins/build-server/pipelines/kubernetes-update-pipeline"
+    }
+
     triggers {
         GenericTrigger(
             genericVariables: [
@@ -32,7 +36,7 @@ pipeline {
             }
             steps{
                 script{
-                    gv = load "scripts.groovy"
+                    gv = load "${SCRIPTS_PATH}/scripts.groovy"
                 }
             }
         }
