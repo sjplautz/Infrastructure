@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: api-route
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`splautz.com`) && PathPrefix(`/api`)
+      services:
+        - name: api-svc
+          port: 80
+  tls:
+    certResolver: le
+    
