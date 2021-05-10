@@ -52,13 +52,11 @@ spec:
             - --providers.kubernetescrd
             - --providers.kubernetesingress
             - --certificatesresolvers.le.acme.tlschallenge=true
-            # - --certificatesresolvers.le.acme.dnsChallenge.provider=hetzner
             - --certificatesresolvers.le.acme.email=plautzstephen@gmail.com
             - --certificatesresolvers.le.acme.storage=/etc/traefik/certs/acme.json
-            # - --certificatesresolvers.le.acme.dnsChallenge.delayBeforeCheck=0
             # Please note that this is the staging Let's Encrypt server.
             # Once you get things working, you should remove that whole line altogether.
-            - --certificatesresolvers.le.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+            # - --certificatesresolvers.le.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
             - --log
             - --log.level=INFO
           securityContext:
@@ -95,12 +93,6 @@ spec:
           volumeMounts:
             - name: certificates
               mountPath: /etc/traefik/certs
-          # env:
-          #   - name: HETZNER_API_KEY
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: hetzner
-          #         key: HETZNER_API_KEY
       volumes:
         - name: certificates
           persistentVolumeClaim:
