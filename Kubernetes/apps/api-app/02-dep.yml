@@ -20,7 +20,7 @@ spec:
       - name: dockerhub-regcreds
       containers:
         - name: api-container
-          image: sjplautz/web-portfolio:traffic-app
+          image: sjplautz/web-portfolio:api-server
           ports:
             - name: http
               containerPort: 80
