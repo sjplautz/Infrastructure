@@ -1,4 +1,4 @@
-FROM jenkins/inbound-agent:lastest
+FROM jenkins/inbound-agent:latest
 
 # Install kubectl from Docker Hub k8s image
 USER root
