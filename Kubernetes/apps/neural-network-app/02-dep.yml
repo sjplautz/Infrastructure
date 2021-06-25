@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: neural-network-dep
+  name: neuralnetwork-dep
   namespace: default
   labels:
-    app: neural-network-app
+    app: neuralnetwork-app
 spec:
   replicas: 2  
   selector: 
     matchLabels:
-      app: neural-network-app
+      app: neuralnetwork-app
   template: 
     metadata:
-      name: neural-network-pod
+      name: neuralnetwork-pod
       labels:
-        app: neural-network-app
+        app: neuralnetwork-app
     spec:
       imagePullSecrets:
       - name: dockerhub-regcreds
       containers:
-        - name: neural-network-container
+        - name: neuralnetwork-container
           image: sjplautz/web-portfolio:neural-network-app
           ports:
             - name: http
