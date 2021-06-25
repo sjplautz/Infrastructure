@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: traffic-svc
+  name: neural-network-svc
   namespace: default
   labels:
-    app: traffic-app
+    app: neural-network-app
 spec:
   selector:
-    app: traffic-app
+    app: neural-network-app
   ports:
     - name: http
       protocol: TCP

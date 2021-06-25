@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: traffic-dep
+  name: neural-network-dep
   namespace: default
   labels:
-    app: traffic-app
+    app: neural-network-app
 spec:
   replicas: 2  
   selector: 
     matchLabels:
-      app: traffic-app
+      app: neural-network-app
   template: 
     metadata:
-      name: traffic-pod
+      name: neural-network-pod
       labels:
-        app: traffic-app
+        app: neural-network-app
     spec:
       imagePullSecrets:
       - name: dockerhub-regcreds
       containers:
-        - name: traffic-container
-          image: sjplautz/web-portfolio:traffic-app
+        - name: neural-network-container
+          image: sjplautz/web-portfolio:neural-network-app
           ports:
             - name: http
               containerPort: 80
