@@ -7,7 +7,7 @@ pipeline {
     environment {
         SCRIPTS_PATH = "Jenkins/build-server/pipelines/kubernetes-infra-pipeline"
         APPS_PATH = "Kubernetes/apps/"
-        APPS = "frontend-app,traffic-app,api-app"
+        APPS = "frontend-app,neural-network-app,api-app"
     }
 
     options{

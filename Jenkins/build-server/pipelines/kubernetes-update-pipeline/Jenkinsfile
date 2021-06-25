@@ -53,6 +53,7 @@ pipeline {
             }
             steps{
                 script{
+                    // could add logic to only update deployments for app images
                     gv.updateDeployment(image)
                 }
             }
