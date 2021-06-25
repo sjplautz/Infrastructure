@@ -7,7 +7,7 @@ pipeline {
     environment {
         REGISTRY = "sjplautz/web-portfolio"
         DOCKER_CREDS = credentials('dockerhub-creds')
-        APPS = "frontend-app,traffic-app"
+        APPS = "frontend-app,neural-network-app"
         SCRIPTS_PATH = "Jenkins/build-server/pipelines/docker-build-pipeline"
     }
 
