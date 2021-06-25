@@ -20,7 +20,7 @@ spec:
       - name: dockerhub-regcreds
       containers:
         - name: neuralnetwork-container
-          image: sjplautz/web-portfolio:neural-network-app
+          image: sjplautz/web-portfolio:neuralnetwork-app
           ports:
             - name: http
               containerPort: 80
