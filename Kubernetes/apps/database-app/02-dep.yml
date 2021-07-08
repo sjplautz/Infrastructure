@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment 
+
+metadata:
+  name: database-dep
+  namespace: default
+  labels:
+    app: database-app
+
+spec:
+  replicas: 1  
+  selector: 
+    matchLabels:
+      app: database-app
+
+  template: 
+    metadata:
+      name: database-pod
+      labels:
+        app: database-app
+    spec:
+      imagePullSecrets:
+      - name: dockerhub-regcreds
+      containers:
+        - name: db-api-container
+          image: sjplautz/web-portfolio:database-app-api
+          ports:
+            - name: http
+              containerPort: 80
+          imagePullPolicy: Always
+        - name: database-container
+          image: sjplautz/web-portfolio:database-app-db
+          imagePullPolicy: Always
+
